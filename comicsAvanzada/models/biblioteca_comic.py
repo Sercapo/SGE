@@ -15,16 +15,10 @@ class BaseArchive(models.AbstractModel):
 
     #Introduce el atributo "Activo"
     activo = fields.Boolean(default=True)
-    leido = fields.Boolean()
-    
 
     #Introducice metodo "archivar" que invierte el estado de "activo"
-    #Recordamos se recive "self" como el modelo entero y no como un registro,
-    #por ese motivo debemos iterar
     def archivar(self):
-        #Por cada registro del modelo
         for record in self:
-            #Cambiamos el valor de activo a su version negada
             record.activo = not record.activo
 
 
@@ -50,6 +44,8 @@ class BibliotecaComic(models.Model):
     #Por defecto es "name", pero si no hay un atributo que se llama name, aqui lo indicamos
     #Aqui indicamos que se use el atributo "nombre"
     _rec_name = 'nombre'
+
+
     #Atributo nombre
     nombre = fields.Char('Titulo', required=True, index=True)
     #Atributo para seleccionar entre varios
@@ -81,6 +77,7 @@ class BibliotecaComic(models.Model):
         #para cada empresa ponga un valor distintos
         #Esta colocado con fin didactico a false 
         company_dependent=False)
+
  
     #Valoración lector, indicando como son los datos
     valoracion_lector = fields.Float(
@@ -89,8 +86,87 @@ class BibliotecaComic(models.Model):
     )
     # Relación muchos a muchos de autores utilizando un "partner"
     # de Odoo (Es un elemento que puede ser empresa o individuo)
-    # https://stackoverflow.com/questions/22927605/what-is-res-partner
     autor_ids = fields.Many2many('res.partner', string='Autores')
+
+    # Relación muchos a uno utilizando un "partner"
+    # de Odoo (Es un elemento que puede ser empresa o individuo)
+
+    editorial_id = fields.Many2one('res.partner', string='Editorial')
+
+    #Relacion muchos a uno con el modelo de las categorias
+    categoria_id = fields.Many2one('biblioteca.comic.categoria')
+    
+    #Variable computada para calcular dias desde el lanzamiento
+    dias_lanzamiento = fields.Integer(
+        string='Dias desde lanzamiento',
+        #Indicamos las funciones que computan el valor, la inversa y la funcion usada para fecha
+        compute='_compute_anyo', inverse='_inverse_anyo', search='_search_anyo',
+        #Indicamos que no se almacene en la base de datos el valor computado
+        store=False,
+        #Hace que en la ejecución de la función de computo del valor, se hace con
+        #permisos de superusuario
+        compute_sudo=True,
+    )
+
+    #Para poder meter referencias a modelos existentes en Odoo (por ejemplo, una factura) como 
+    #un dato del modelo. Para saber que documentos, usa "referencable_models"
+    ref_doc_id = fields.Reference(selection='_referencable_models', string='Referencia a documento')
+
+    #Funcion usada para obtener que modelos pueden ser referenciados 
+    @api.model
+    def _referencable_models(self):
+        models = self.env['ir.model'].search([('field_id.name', '=', 'message_ids')])
+        return [(x.model, x.name) for x in models]
+
+
+    #Funcion para computar el valor de "Dias desde lanzamiento"
+    #Indicamos con este decordador que esta funcion depende del atributo "fecha_publicacion"
+    @api.depends('fecha_publicacion')
+    def _compute_anyo(self):
+        #Obtenemos la fecha de hoy
+        hoy = fields.Date.today()
+        #Como self es el modelo, recorremos cada uno de los registros
+        for comic in self:
+            #Caso de que este establecida una fecha (si no lo esta, el calculo es 0)
+            if comic.fecha_publicacion:
+                #Obtenemos la diferencia entre la fecha de hoy y esa fecha
+                delta = hoy - comic.fecha_publicacion
+                #De la fecha resultado, extraemos el número de dias
+                comic.dias_lanzamiento = delta.days
+            else:
+                comic.dias_lanzamiento = 0
+
+    #Funcion que sirve para la inversa del computado: esto hace, que si modificamos
+    #el valor computado, podamos modificar el valor de la fecha
+    def _inverse_anyo(self):
+        #Obtenemos la fecha de hoy
+        hoy = fields.Date.today()
+        #Obtenemos los registros de comic. En esta ocasión 
+        #filtramos por aquellos que tengan "fecha_publicacion" y asi evitamos no establecidos
+        for comic in self.filtered('fecha_publicacion'):
+            #restamos la fecha de hoy a una fecha generada con los dias del lanzamiento
+            d = hoy - timedelta(days=comic.dias_lanzamiento)
+            #Con esa resta, obtenemos la fecha de lanzamiento
+            comic.fecha_publicacion = d
+
+    def _search_age(self, operator, value):
+        hoy = fields.Date.today()
+        value_dias = timedelta(dias=value)
+        value_fecha = hoy - value_dias
+        operator_map = {
+            '>': '<', '>=': '<=',
+            '<': '>', '<=': '>=',
+        }
+        new_op = operator_map.get(operator, operator)
+        return [('fecha_publicacion', new_op, value_fecha)]
+
+    def name_get(self):
+        result = []
+        for record in self:
+            rec_name = "%s (%s)" % (record.nombre, record.fecha_publicacion)
+            result.append((record.id, rec_name))
+        return result
+
 
     #Constraints de SQL del modelo
     #Util cuando la constraint se puede definir con sintaxis SQL
