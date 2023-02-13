@@ -4,7 +4,7 @@
 
     <!-- Definimos como mostramos la vista en el modelo -->
     <record id='biblioteca_comic_action' model='ir.actions.act_window'>
-        <field name="name">Biblioteca de Comics</field>
+        <field name="name">La mazmorra del androide(Comics)</field>
         <!-- Indicamos a que modelo aplica -->
         <field name="res_model">biblioteca.comic</field>
         <!-- Indicamos que los comics pueden verse en tree o kanban para el listado,
@@ -16,7 +16,7 @@
     </record>
 
     <!-- Creamos la base del menu item -->
-    <menuitem name="Mi biblioteca (Avanzada)" id="biblioteca_base_menu" />
+    <menuitem name="La mazmorra del androide" id="biblioteca_base_menu" />
     <!-- Creamos un hijo de la base, que servira para ir a la vista de comics 
     En la otra vista, crearemos uno igual para ir a la vista de categorias
     -->
@@ -24,7 +24,7 @@
 
     <!-- Vista formulario -->
     <record id="biblioteca_comic_view_form" model="ir.ui.view">
-        <field name="name">Formulario de Comic de la biblioteca</field>
+        <field name="name">Formulario de Comic de la mazmorra</field>
         <field name="model">biblioteca.comic</field>
         <field name="arch" type="xml">
             <form>
@@ -69,9 +69,10 @@
         </field>
     </record>
 
+    
     <!-- Definición de la vista Tree -->
     <record id="biblioteca_comic_view_tree" model="ir.ui.view">
-        <field name="name">Lista de Comics de la biblioteca</field>
+        <field name="name">Lista de Comics de la mazmorra</field>
           <field name="model">biblioteca.comic</field>
         <field name="arch" type="xml">
             <tree>
@@ -85,7 +86,7 @@
 
     <!-- Definición de la vista busqueda-->
     <record id="biblioteca_comic_view_search" model="ir.ui.view">
-        <field name="name">Búsqueda de Comics en la biblioteca</field>
+        <field name="name">Búsqueda de Comics en la mazmorra</field>
         <field name="model">biblioteca.comic</field>
         <field name="arch" type="xml">
             <search>
@@ -101,7 +102,7 @@
 
     <!-- Definición de la vista Kanban (añadida en este ejemplo) -->
     <record id="biblioteca_comic_view_kanban" model="ir.ui.view">
-        <field name="name">Lista de Comics de la biblioteca</field>
+        <field name="name">Lista de Comics de la mazmorra</field>
         <field name="model">biblioteca.comic</field>
         <field name="arch" type="xml">
             <!-- Agrupamos por el atributo "parent_id"-->

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <record id='biblioteca_socio_action' model='ir.actions.act_window'>
+        <field name="name">La mazmorra del androide(Socios)</field>
+        <field name="res_model">socio</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Socio" id="biblioteca_socio_menu" parent="biblioteca_base_menu" action="biblioteca_socio_action" />
+
+ <record id="biblioteca_socio_view_form" model="ir.ui.view">
+        <field name="name">Formulario de la mazmorra</field>
+        <field name="model">socio</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="nombre" />
+                    <field name="apellido"/>
+                    <field name="socio_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="biblioteca_socio_view_tree" model="ir.ui.view">
+        <field name="name">Socios  de la mazmorra</field>
+        <field name="model">socio</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nombre" />
+                <field name="apellido"/>
+                <field name="socio_id"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>
+

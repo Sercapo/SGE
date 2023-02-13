@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id='biblioteca_prestamos_action' model='ir.actions.act_window'>
+        <field name="name">La mazmorra del androide(Prestamos)</field>
+        <field name="res_model">prestamos</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Prestamos" id="biblioteca_prestamos_menu" parent="biblioteca_base_menu" action="biblioteca_prestamos_action" />
+
+    <record id="biblioteca_prestamos_view_form" model="ir.ui.view">
+        <field name="name">Formulario de la mazmorra</field>
+        <field name="model">prestamos</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="comic_id"/>
+                    <field name="socio_id" />
+                    <field name="fecha_inicio"/>
+                    <field name="fecha_final"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="biblioteca_prestamos_view_tree" model="ir.ui.view">
+        <field name="name">Prestamos de la mazmorra</field>
+        <field name="model">prestamos</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="comic_id"/>
+                <field name="socio_id" />
+                <field name="fecha_inicio"/>
+                <field name="fecha_final"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>
+

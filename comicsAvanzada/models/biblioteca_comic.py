@@ -26,11 +26,11 @@ class BaseArchive(models.AbstractModel):
 class BibliotecaComic(models.Model):
 
     #Nombre y descripcion del modelo
-    _name = 'biblioteca.comic'
+    _name = 'La mazmorra del androide'
     #Hereda de "base.archive" (el modelo abstracto creado antes)
     _inherit = ['base.archive']
 
-    _description = 'Comic de biblioteca'
+    _description = 'La mazmorra del androide'
 
     #Parametros de ordenacion por defecto
     _order = 'fecha_publicacion desc, nombre'
