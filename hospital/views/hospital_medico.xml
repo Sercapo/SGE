@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+ <!-- Definimos como mostramos la vista en el modelo -->
+    <record id='hospital_medico_action' model='ir.actions.act_window'>
+        <field name="name">Registro de medicos del Loquero</field>
+        <!-- Indicamos a que modelo aplica -->
+        <field name="res_model">hospital.medico</field>
+        <!-- Indicamos que los comics pueden verse en tree para el listado,
+            y en form para la creación/edición -->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Simple menu item, sin más utilidad que la didáctica -->
+    <menuitem name="Hospital Manicomio San Miquel" id="hospital_base_menu" />
+    <menuitem name="Medicos" id="hospital_medico_menu" parent="hospital_base_menu" action="hospital_medico_action"/>
+
+    <!-- Definición de la Vista formulario -->
+    <record id="hospital_medico_view_form" model="ir.ui.view">
+        <field name="name">Formulario de medicos del Hospital Manicomo</field>
+        <field name="model">hospital.medico</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="nombre"/>
+                        <field name="apellido"/>
+                        <field name="medico_id"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Definición de la vista Tree -->
+    <record id="hospital_medico_view_tree" model="ir.ui.view">
+        <field name="name">Lista de medicos del Hospital Manicomio</field>
+        <field name="model">hospital.medico</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name="nombre"/>
+                <field name="apellido"/>
+                <field name="medico_id"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
+
