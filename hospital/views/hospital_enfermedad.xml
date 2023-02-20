@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Definimos como mostramos la vista en el modelo -->
-    <record id='hospital_atencion_action' model='ir.actions.act_window'>
-        <field name="name">Registro de Atencion  del Loquero</field>
+    <record id='hospital_enfermedad_action' model='ir.actions.act_window'>
+        <field name="name">Registro de enfermedades vistas en el Loquero</field>
         <!-- Indicamos a que modelo aplica -->
-        <field name="res_model">hospital.atencion</field>
+        <field name="res_model">hospital.enfermedad</field>
         <!-- Indicamos que los comics pueden verse en tree para el listado,
             y en form para la creación/edición -->
         <field name="view_mode">tree,form</field>
@@ -12,19 +12,19 @@
 
     <!-- Simple menu item, sin más utilidad que la didáctica -->
     <menuitem name="Hospital Manicomio San Miquel" id="hospital_base_menu" />
-    <menuitem name="Atencion" id="hospital_atencion_menu" parent="hospital_base_menu" action="hospital_atencion_action"/>
+    <menuitem name="Enfermedades" id="hospital_enfermedad_menu" parent="hospital_base_menu" action="hospital_enfermedad_action"/>
 
     <!-- Definición de la Vista formulario -->
-    <record id="hospital_atencion_view_form" model="ir.ui.view">
-        <field name="name">Formulario de Atencion a los Pacientes</field>
-        <field name="model">hospital.atencion</field>
+    <record id="hospital_enfermedad_view_form" model="ir.ui.view">
+        <field name="name">Formulario de Enfermedades descubiertas o por descubrir</field>
+        <field name="model">hospital.enfermedad</field>
         <field name="arch" type="xml">
             <form>
                 <group>
                     <group>
-                        <field name="medico_id"/>
-                        <field name="paciente_id"/>
-                        <field name="enfermedades"/>
+                        <field name="enfermedad_id"/>
+                        <field name="nombre"/>
+                        <field name="descripcion"/>
                     </group>
                 </group>
             </form>
@@ -32,14 +32,14 @@
     </record>
 
     <!-- Definición de la vista Tree -->
-    <record id="hospital_atencion_view_tree" model="ir.ui.view">
+    <record id="hospital_enfermedad_view_tree" model="ir.ui.view">
         <field name="name">Lista de Atencion a los Pacientes</field>
-        <field name="model">hospital.atencion</field>
+        <field name="model">hospital.enfermedad</field>
         <field name="arch" type="xml">
             <tree>
-               <field name="medico_id"/>
-                <field name="paciente_id"/>
-               <field name="enfermedades"/>
+                <field name="enfermedad_id"/>
+                <field name="nombre"/>
+                <field name="descripcion"/>
             </tree>
         </field>
     </record>

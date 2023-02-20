@@ -28,12 +28,17 @@ class BaseArchive(models.AbstractModel):
 class Hospital(models.Model):
 
     #Nombre y descripcion del modelo
-    _name = 'hospital.atencion'
+    _name = 'hospital.enfermedad'
+    
     #Hereda de "base.archive" (el modelo abstracto creado antes)
     _inherit = ['base.archive']
 
-    paciente_id = fields.Many2one('hospital.paciente', string='Paciente',required=True, index=True)
+    _description = 'Enfermedad descubiertas o por descubrir'
 
-    medico_id = fields.Many2one('hospital.medico', string='Medico',required=True,index = True)
+    _rec_name = 'nombre'
 
-    enfermedades = fields.Many2many('hospital.enfermedad',string='Enfermedades', required=True)
+    enfermedad_id = fields.Char('Enfermedad_Id',required=True)
+
+    nombre = fields.Char('Nombre',required=True)
+
+    descripcion = fields.Char('Descripcion',required=False)

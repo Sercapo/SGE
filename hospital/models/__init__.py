@@ -4,3 +4,5 @@
 from . import hospital_paciente
 from . import hospital_medico
 from . import hospital_atencion
+from . import hospital_enfermedad
+

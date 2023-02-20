@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 acl_atencion,hospital.atencion_default,model_hospital_atencion,,1,1,1,1
 acl_medico,hospital.medico_default,model_hospital_medico,,1,1,1,1
 acl_paciente,hospital.paciente_default,model_hospital_paciente,,1,1,1,1
+acl_enfermedad,hospital.enfermedad_default,model_hospital_enfermedad,,1,1,1,1

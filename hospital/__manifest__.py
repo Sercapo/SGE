@@ -27,6 +27,8 @@
         'views/hospital_paciente.xml',
         'views/hospital_medico.xml',
         'views/hospital_atencion.xml',
+        'views/hospital_enfermedad.xml',
+
     ],
     # Fichero con data de demo si se inicializa la base de datos con "demo data" (No incluido en ejemplo)
     # 'demo': [
