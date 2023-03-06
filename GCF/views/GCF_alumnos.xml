@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+ <!-- Definimos como mostramos la vista en el modelo -->
+    <record id='GCF_alumnos_action' model='ir.actions.act_window'>
+        <field name="name">Registro Alumnos</field>
+        <!-- Indicamos a que modelo aplica -->
+        <field name="res_model">alumnos</field>
+        <!-- Indicamos que los comics pueden verse en tree para el listado,
+            y en form para la creación/edición -->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Simple menu item, sin más utilidad que la didáctica -->
+    <menuitem name="Alumnos" id="GCF_alumnos_menu" parent="GCF_base_menu" action="GCF_alumnos_action"/>
+
+    <!-- Definición de la Vista formulario -->
+    <record id="GCF_alumnos_view_form" model="ir.ui.view">
+        <field name="name">Formulario para Alumnos</field>
+        <field name="model">alumnos</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                        <field name="alumno_id"/>
+                        <field name="nombre"/>
+                        <field name="apellido"/>
+                        <field name="modulo_id"/>
+                        <field name="centro_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Definición de la vista Tree -->
+    <record id="GCF_alumnos_view_tree" model="ir.ui.view">
+        <field name="name">Lista de Alumnos </field>
+        <field name="model">alumnos</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="alumno_id"/>
+                <field name="nombre"/>
+                <field name="apellido"/>
+                <field name="modulo_id"/>
+                <field name="centro_id"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+<!-- Definimos como mostramos la vista en el modelo -->
+    <record id='GCF_centros_action' model='ir.actions.act_window'>
+        <field name="name">Registro los Centros</field>
+        <!-- Indicamos a que modelo aplica -->
+        <field name="res_model">centros</field>
+        <!-- Indicamos que los comics pueden verse en tree para el listado,
+            y en form para la creación/edición -->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Simple menu item, sin más utilidad que la didáctica -->
+    <menuitem name="Gestor de Ciclos" id="GCF_base_menu" />
+    <menuitem name="Centros" id="GCF_centros_menu" parent="GCF_base_menu" action="GCF_centros_action"/>
+
+    <!-- Definición de la Vista formulario -->
+    <record id="GCF_centros_view_form" model="ir.ui.view">
+        <field name="name">Formulario de Centros</field>
+        <field name="model">centros</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="centro_id"/>
+                        <field name="nombre"/>
+                        <field name="ciclos_id"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Definición de la vista Tree -->
+    <record id="GCF_profesores_view_tree" model="ir.ui.view">
+        <field name="name">Lista los Centros</field>
+        <field name="model">centros</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="centro_id"/>
+                <field name="nombre"/>
+                <field name="ciclos_id"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
+
